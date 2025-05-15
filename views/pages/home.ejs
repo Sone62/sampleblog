@@ -1,57 +1,76 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
+
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Declutterly - where your things go matter</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
-    <link rel="stylesheet" href="/css/style.css" >
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Declutterly – Where Your Things Go Matters</title>
+<link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <main class="container">
-        <!-- Navbar which can be reused across other pages -->
-        <%- include('../partials/navbar'); %>
+<h1>Declutterly – Where Your Things Go Matters</h1>
 
-        <!-- Information welcoming visitors to my page -->
-        
-          <main className="flex-1 container mx-auto py-8 px-4">
-        <section className="mb-12 text-center">
-          <h1 className="text-4xl font-bold text-eco-primary mb-4">
-            Mindful moves to spark joy
-          </h1>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Find the best ways to recycle, donate, or repair your items to reduce waste
-            and give them a second life.
-          </p>
-        </section>
-        
-        
-        <div class="welcome-container">
-            <h1>Declutterly</h1>
-            <h2></h2>
-            <p>
-                Decluttering is more than just tidying up—it’s a transformative process that clears your space and your mind.
-                <br> In a world filled with distractions and excess, paring down possessions to what truly matters can bring a sense of calm, control, and efficiency. 
-                <br> Whether it’s organizing your home, streamlining your digital life, or simplifying your schedule, decluttering allows you to focus on what’s important and eliminate what no longer serves you. By embracing minimalism and intentionality, you can create an environment that fosters productivity, reduces stress, and enhances your overall well-being. Ready to make room for a clearer, lighter life? 
-                <br> very object should serve a purpose or bring happiness, and if it doesn’t, it’s time to part ways. Organize with intention, streamline for efficiency, and create a space that supports your goals. A tidy, well-managed environment isn’t just pleasing—it’s a foundation for success and balance. Let’s embrace a lifestyle that is both joyful and practical!
-                <br>Let’s dive into the art of decluttering!
-            </p>
-        </div>
+<form id="declutterForm">
+<label for="category">1. Select category:</label>
+<select id="category" name="category">
+<option value="">--Choose--</option>
+<option value="clothes">Clothes</option>
+<option value="electronics">Electronics</option>
+<option value="furniture">Furniture</option>
+<option value="books">Books</option>
+</select>
 
-        <div class="new-post-btn-container">
-           <a href="/new" class="button" role="button">+ New Item!</a>
-        </div>
+<label for="description">2. Description or image (optional):</label>
+<textarea id="description" placeholder="Describe your item..."></textarea>
+<input type="file" accept="image/*">
+<br>
+<br>
+<label for="location">3. Location (optional):</label>
+<input type="text" id="location" placeholder="Enter your location..." />
+<button type="button" onclick="useCurrentLocation()">Use Current Location</button>
 
-        <!-- Show blog posts -->
-        <% blogs.forEach(post => { %>
-            <article class="post-container">
-                <h3><%= post.title %></h3>
-                <p><%= post.content %></p>
-                <form action="/delete/<%= post.id %>" method="post" onsubmit="return confirm('Do you really want to delete this post?');">
-                    <button class="outline primary" type="submit">Delete</button>
-                </form>
-            </article>
-        <% }); %>
-    </main>
+<br><br>
+<button type="submit">4. Find Option</button>
+</form>
+
+<div class="output" id="results">
+<h2>Results</h2>
+<p>Fill the form and click "Find Option" to get started.</p>
+</div>
+
+<script>
+function useCurrentLocation() {
+if (navigator.geolocation) {
+navigator.geolocation.getCurrentPosition(position => {
+document.getElementById("location").value =
+`Lat: ${position.coords.latitude}, Lon: ${position.coords.longitude}`;
+}, () => {
+alert("Unable to retrieve your location.");
+});
+}
+}
+
+document.getElementById('declutterForm').addEventListener('submit', async (e) => {
+e.preventDefault();
+const category = document.getElementById('category').value;
+const location = document.getElementById('location').value;
+const description = document.getElementById('description').value;
+
+const res = await fetch('/search', {
+method: 'POST',
+headers: { 'Content-Type': 'application/json' },
+body: JSON.stringify({ category, location, description })
+});
+
+const data = await res.json();
+const resultsDiv = document.getElementById('results');
+resultsDiv.innerHTML = `<h2>Results</h2>${data.map(item => `
+<div class="result-item">
+<strong>${item.name}</strong><br/>
+${item.address}<br/>
+<a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.address)}" target="_blank">View on Map</a>
+</div>
+`).join('')}`;
+});
+</script>
 </body>
 </html>
