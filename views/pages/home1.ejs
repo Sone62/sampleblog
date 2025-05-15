@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declutterly - where your things go matter</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+    <link rel="stylesheet" href="/css/style.css" >
+</head>
+<body>
+  <main className="flex-1 container mx-auto py-8 px-4">
+        <section className="mb-12 text-center">
+          <h1 className="text-4xl font-bold text-eco-primary mb-4">
+            Mindful moves to spark joy
+          </h1>
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            Find the best ways to recycle, donate, or repair your items to reduce waste
+            and give them a second life.
+          </p>
+        </section>
+
+        <section className="mb-12">
+          <div className="bg-eco-light rounded-lg p-6 shadow">
+            <h2 className="text-2xl font-bold mb-4">What would you like to declutter?</h2>
+            <ItemInput onSubmit={handleItemSubmit} />
+            
+            <div className="mt-6">
+              <h3 className="text-lg font-medium mb-3">How would you like to declutter?</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                <Button 
+                  onClick={() => handleOptionSelect('auto')}
+                  variant="outline"
+                  className={`flex flex-col items-center justify-center h-20 ${selectedOption === 'auto' ? 'bg-eco-primary text-white' : 'bg-white'}`}
+                >
+                  <Handshake className="h-6 w-6 mb-1" />
+                  <span>Let me know!</span>
+                </Button>
+                <Button 
+                  onClick={() => handleOptionSelect('recycle')}
+                  variant="outline"
+                  className={`flex flex-col items-center justify-center h-20 ${selectedOption === 'recycle' ? 'bg-eco-recycle text-white' : 'bg-white'}`}
+                >
+                  <Recycle className="h-6 w-6 mb-1" />
+                  <span>Recycle</span>
+                </Button>
+                <Button 
+                  onClick={() => handleOptionSelect('donate')}
+                  variant="outline"
+                  className={`flex flex-col items-center justify-center h-20 ${selectedOption === 'donate' ? 'bg-eco-donate text-white' : 'bg-white'}`}
+                >
+                  <Archive className="h-6 w-6 mb-1" />
+                  <span>Donate</span>
+                </Button>
+                <Button 
+                  onClick={() => handleOptionSelect('repair')}
+                  variant="outline"
+                  className={`flex flex-col items-center justify-center h-20 ${selectedOption === 'repair' ? 'bg-eco-repair text-white' : 'bg-white'}`}
+                >
+                  <Wrench className="h-6 w-6 mb-1" />
+                  <span>Repair</span>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {item && selectedOption && (
+          <section className="mb-12 animate-fade-in">
+            <div className="bg-white rounded-lg p-6 shadow">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-2xl font-bold">Decluttering Options</h2>
+                <Badge className="bg-eco-primary">{item.category}</Badge>
+              </div>
+              <DeclutterOptions 
+                itemCategory={item.category} 
+                itemDescription={item.description} 
+                selectedOption={selectedOption}
+              />
+            </div>
+          </section>
+        )}
+
+        <section>
+          <div>
+            <h2>Ready to make Singapore greener?</h2>
+            <p>
+              Every item decluttered responsibly brings us one step closer to a sustainable future.
+            </p>
+            <Button variant="outline" size="lg" className="bg-white text-eco-primary hover:bg-gray-100">
+              Learn More About Sustainable Living
+              <ArrowRight/>
+            </Button>
+          </div>
+        </section>
+      </main>
+    </main>
+</body>
+</html>

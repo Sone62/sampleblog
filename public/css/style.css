@@ -1,37 +1,41 @@
-.welcome-container {
-    text-align: center;
-
-    margin-top: 50px;
-    margin-bottom: 50px;
+body {
+font-family: Arial, sans-serif;
+background-color: #f5f5f5;
+max-width: 700px;
+margin: auto;
+padding: 20px;
 }
-
-.new-post-btn-container{
-    text-align: center;
-
-    margin-top: 50px;
-    margin-bottom: 50px;
+h1 {
+color: #2c3e50;
 }
-
-.post-container {
-    max-width: 800px;
-
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: auto;
-    margin-right: auto;
+label {
+font-weight: bold;
 }
-
-.about-container {
-    text-align: center;
-
-    margin-top: 50px;
-    margin-bottom: 50px;
+input[type="text"], textarea, select {
+width: 100%;
+padding: 10px;
+margin: 8px 0 20px;
+border: 1px solid #ccc;
+border-radius: 4px;
 }
-
-.about-container > img{
-    margin-bottom: 40px;
+button {
+background-color: #27ae60;
+color: white;
+padding: 12px 20px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
 }
-
-.cancel-create-post {
-    text-align: center;
+button:hover {
+background-color: #219150;
+}
+.output {
+background: #fff;
+padding: 20px;
+margin-top: 30px;
+border: 1px solid #ddd;
+}
+.result-item {
+padding: 10px 0;
+border-bottom: 1px solid #eee;
 }
