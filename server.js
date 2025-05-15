@@ -46,6 +46,13 @@ app.get('/about', function(req, res) {
     res.render('pages/about');
 });
 
+// location test
+app.post("/find-options", (req, res) => {
+    const { category, location } = req.body;
+    // Fetch decluttering options based on category & location
+    res.json({ message: "Options retrieved successfully!" });
+});
+
 // New post page
 app.get('/new', function(req, res) {
     res.render('pages/new');
