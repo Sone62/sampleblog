@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Declutterly - where your things go matter</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+    <link rel="stylesheet" href="/css/style.css" >
+</head>
+<body>
+    <main class="container">
+        <!-- Navbar which can be reused across other pages -->
+        <%- include('../partials/navbar'); %>
+
+        <!-- Information welcoming visitors to my page -->
+        
+          <main className="flex-1 container mx-auto py-8 px-4">
+        <section className="mb-12 text-center">
+          <h1 className="text-4xl font-bold text-eco-primary mb-4">
+            Mindful moves to spark joy
+          </h1>
+          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+            Find the best ways to recycle, donate, or repair your items to reduce waste
+            and give them a second life.
+          </p>
+        </section>
+        
+        
+        <div class="welcome-container">
+            <h1>Declutterly</h1>
+            <h2></h2>
+            <p>
+                Decluttering is more than just tidying up—it’s a transformative process that clears your space and your mind.
+                <br> In a world filled with distractions and excess, paring down possessions to what truly matters can bring a sense of calm, control, and efficiency. 
+                <br> Whether it’s organizing your home, streamlining your digital life, or simplifying your schedule, decluttering allows you to focus on what’s important and eliminate what no longer serves you. By embracing minimalism and intentionality, you can create an environment that fosters productivity, reduces stress, and enhances your overall well-being. Ready to make room for a clearer, lighter life? 
+                <br> very object should serve a purpose or bring happiness, and if it doesn’t, it’s time to part ways. Organize with intention, streamline for efficiency, and create a space that supports your goals. A tidy, well-managed environment isn’t just pleasing—it’s a foundation for success and balance. Let’s embrace a lifestyle that is both joyful and practical!
+                <br>Let’s dive into the art of decluttering!
+            </p>
+        </div>
+
+        <div class="new-post-btn-container">
+           <a href="/new" class="button" role="button">+ New Item!</a>
+        </div>
+
+        <!-- Show blog posts -->
+        <% blogs.forEach(post => { %>
+            <article class="post-container">
+                <h3><%= post.title %></h3>
+                <p><%= post.content %></p>
+                <form action="/delete/<%= post.id %>" method="post" onsubmit="return confirm('Do you really want to delete this post?');">
+                    <button class="outline primary" type="submit">Delete</button>
+                </form>
+            </article>
+        <% }); %>
+    </main>
+</body>
+</html>
