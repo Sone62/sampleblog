@@ -1,4 +1,15 @@
-import requests
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"/>
+    <link rel="stylesheet" href="/css/style.css" >
+</head>
+<body>
+  <!-- Testing API request -->
+        import requests
           
 dataset_id = "d_7e1f0da76a744c85e3d3ecc76642dcb5"
 url = "https://api-open.data.gov.sg/v1/public/api/datasets/" + dataset_id + "/poll-download"
@@ -12,3 +23,6 @@ if json_data['code'] != 0:
 url = json_data['data']['url']
 response = requests.get(url)
 print(response.text)
+    </main>
+</body>
+</html>
